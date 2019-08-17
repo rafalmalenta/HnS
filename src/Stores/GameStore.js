@@ -20,7 +20,7 @@ var store = window.store = new GameStore(player);
   
 autorun(()=> {
     console.log(`ten store `, store.player.health);
-    //console.log('dsad', store.value)
+    console.log('dsad', store.player.position)
 });
 
 //store.player.health = 211;

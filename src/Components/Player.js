@@ -9,43 +9,66 @@ import gameStore from "../Stores/gameStore";
             left: `${gameStore.player.position.x}px`,
             top: `${gameStore.player.position.y}px`,            
             }      
-    }
-    
-    hurt(){       
-        gameStore.player.health = gameStore.player.health-2
-    }
-    move(vector){
-        gameStore.player.position.x = gameStore.player.position.x + vector.x;
-        gameStore.player.position.y = gameStore.player.position.y + vector.y;        
-        this.setState({ left : gameStore.player.position.x , top:gameStore.player.position.y});        
-        console.log( gameStore.player.position.y)
+    }    
+    vectorArray = [];
+    addVector(vectorToAdd){        
+        console.log(this.vectorArray)
+        var existInArray = this.vectorArray.some((vector)=>{            
+            return ((vector.x === vectorToAdd.x)&&(vector.y === vectorToAdd.y))    
+        })
+        if(!existInArray)
+            this.vectorArray.push(vectorToAdd)
     };
+    removeVector(vectorToRemove){    
+        this.vectorArray = this.vectorArray.filter((vector)=>{
+            return ((vector.x !== vectorToRemove.x)||(vector.y !== vectorToRemove.y))    
+        })         
+    };
+
     handleKeyPress(event){   
         switch (event.code) {
             case 'KeyW':
-                this.move({x:0,y:-2});
+                this.addVector({x:0,y:-1});
                 break;
             case 'KeyS':
-                this.move({x:0,y:2});
+                this.addVector({x:0,y:1});
                 break;
             case 'KeyA':
-                this.move({x:-2,y:0});              
+                this.addVector({x:-1,y:0});              
                 break;
             case 'KeyD':
-                this.move({x:2,y:0});              
+                this.addVector({x:1,y:0});              
                 break;             
           }
-        
+    };
+    handleKeyUp(event){   
+        switch (event.code) {
+            case 'KeyW':
+                this.removeVector({x:0,y:-1});
+                break;
+            case 'KeyS':
+                this.removeVector({x:0,y:1});
+                break;
+            case 'KeyA':
+                this.removeVector({x:-1,y:0});              
+                break;
+            case 'KeyD':
+                this.removeVector({x:1,y:0});              
+                break;             
+          }
     };
     componentDidMount(){
-        document.addEventListener("keydown",(event)=>{            
+        this.keyHandler = window.addEventListener("keydown",(event)=>{            
             this.handleKeyPress(event)
+        });
+        this.keyUpHandler = window.addEventListener("keyup",(event)=>{
+            this.handleKeyUp(event);
         })
     }
    
     render(){        
     return(
-        <div class="player"style={this.state} onClick={this.hurt}>
+        <div className="player" style={this.state} onClick={this.hurt}>
             {gameStore.player.health}
         </div>
     )
