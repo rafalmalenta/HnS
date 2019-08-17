@@ -19,6 +19,7 @@ var store = window.store = new GameStore(player);
   
   
 autorun(()=> {
+  //odpala loga tylko jezeli wyswietlana zawartosc ulegnie zmianie!
     console.log(`ten store `, store.player.health);
     console.log('dsad', store.player.position)
 });
