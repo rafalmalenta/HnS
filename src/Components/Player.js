@@ -68,17 +68,21 @@ import gameStore from "../Stores/gameStore";
         this.keyUpHandler = window.addEventListener("keyup",(event)=>{
             this.handleKeyUp(event);
         });
-        setInterval(()=>{
+        this.movement=setInterval(()=>{
             gameStore.player.move();            
         },300)
+    }
+    componentWillUnmount(){
+        window.removeEventListener("keydown");
+        window.removeEventListener("keyup")
     }
    
     render(){        
     return(
         <div className="player" 
             style={{left:`${gameStore.player.position.x}px`,top:`${gameStore.player.position.y}px`}} 
-            onClick={this.hurt}>
-            {gameStore.player.health} /{gameStore.player.maxHealth}
+            onClick = {this.hurt}>
+            {gameStore.player.health} / {gameStore.player.maxHealth}
         </div>
     )
     }

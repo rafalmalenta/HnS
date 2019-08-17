@@ -11,18 +11,18 @@ class movementVector{
 
 class player {
     @observable health;
-    @observable maxHealh;
+    @observable maxHealth;
     @observable position;
     @observable movementVector;
-    constructor(health,maxHealh,position,movementVector){
+    constructor(health,maxHealth,position,movementVector){
       this.health = health;
-      this.maxHealh = maxHealh;
+      this.maxHealth = maxHealth;
       this.position = position;
       this.movementVector= movementVector
     };
     move(){      
-      this.position.x = (this.position.x + this.movementVector.x); //Upgrade this when i provide movementSpeed
-      this.position.y = (this.position.y + this.movementVector.y);
+      this.position.x = (this.position.x + this.movementVector.x); //* MovementSpeed ;//Upgrade this when i provide movementSpeed
+      this.position.y = (this.position.y + this.movementVector.y); //* movementSpeed ;//
       
     };
     
