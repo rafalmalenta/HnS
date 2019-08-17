@@ -11,7 +11,7 @@ import {addVector, removeVector,computeMovementVector} from "../functions/handle
     }    
     vectorsArray = [];
    
-    removeVector=removeVector.bind(this);
+    removeVector = removeVector.bind(this);
     addVector = addVector.bind(this);
     computeMovementVector = computeMovementVector.bind(this)   
     handleKeyPress = handleKeyPress.bind(this);
@@ -26,13 +26,12 @@ import {addVector, removeVector,computeMovementVector} from "../functions/handle
         });
         this.movement=setInterval(()=>{
             gameStore.player.move();            
-        },300)
+        },11)
     }
     componentWillUnmount(){
         window.removeEventListener("keydown");
         window.removeEventListener("keyup");
     }
-   
     render(){        
     return(
         <div className="player" 
