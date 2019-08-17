@@ -20,15 +20,12 @@ class player {
       this.position = position;
       this.movementVector= movementVector
     };
-    move(){
-      this.position.x = this.position.x + movementVector.x;
-      this.position.y = this.position.y + movementVector.y;
+    move(){      
+      this.position.x = (this.position.x + this.movementVector.x); //Upgrade this when i provide movementSpeed
+      this.position.y = (this.position.y + this.movementVector.y);
+      
     };
-    addVector(vector){
-      this.movementVector.x = this.movementVector.x + vector.x;
-      this.movementVector.y = this.movementVector.y + vector.y;
-      console.log( this.movementVector.y +" "+ this.movementVector.x)
-    }   
+    
 }
 
 player = new player(222,444,{x: 0,y: 0},{x:0,y:0});
