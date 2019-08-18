@@ -12,23 +12,25 @@ class movementVector{
 }
 
 class player extends AbstractCharacter{
-    //@observable health;
-    //@observable maxHealth;
-    //@observable position;
-    //@observable movementVector; 
-    //move;  
-    constructor(health,maxHealth,position,movementVector,move){
-      super(health,maxHealth,position,movementVector,move);
-      //this.health = health;
-      //this.maxHealth = maxHealth;
-      //this.position = position;
-      //this.movementVector= movementVector;
-      //this.move = move;         
+    constructor(Settings){
+      super(Settings);
     };  
-    //move = move;   
 }
 
+var PlayerSettings = {
+  health : 200,
+  maxHealth : 300,
+  position: {
+    x:0,
+    y:0,
+  },
+  movementVector:{
+    x:0,
+    y:0,
+  },
+  move : move,
+}
 
-player = new player(222,444,{x: 0,y: 0},{x:0,y:0},move);
+player = new player(PlayerSettings);
 
 export default player

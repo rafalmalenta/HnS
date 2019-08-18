@@ -1,5 +1,4 @@
 import { observable } from 'mobx';
-import move from "../functions/move";
 
 class position{
   @observable x;
@@ -16,12 +15,12 @@ class AbstractCharacter {
     @observable position;
     @observable movementVector; 
     move;  
-    constructor(health,maxHealth,position,movementVector,move){
-      this.health = health;
-      this.maxHealth = maxHealth;
-      this.position = position;
-      this.movementVector= movementVector;
-      this.move = move;         
+    constructor(SettingsJSOL){
+      this.health = SettingsJSOL.health;
+      this.maxHealth = SettingsJSOL.maxHealth;
+      this.position = SettingsJSOL.position;
+      this.movementVector= SettingsJSOL.movementVector;
+      this.move = SettingsJSOL.move;         
     };     
 }
 
