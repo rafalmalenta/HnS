@@ -30,7 +30,6 @@ var PlayerSettings = {
   },
   move : move,
 }
-
 player = new player(PlayerSettings);
 
 export default player
