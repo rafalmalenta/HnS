@@ -8,7 +8,7 @@ import Player from './Player';
     }
     
     render(){
-        //console.log(this.props)
+        
         return(            
             <div height="100%">
                <Player />

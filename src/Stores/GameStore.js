@@ -1,5 +1,6 @@
 import { autorun,computed, observable } from 'mobx';
-import player from "./playerStore"
+import player from "./playerStore";
+
 class equipment{
   @observable hands;
   @observable chest;
@@ -7,10 +8,12 @@ class equipment{
 
 
 class GameStore{
-  @observable player
+  @observable player;
+  @observable creeps;
   constructor(player){
     this.player = player;  
-  }
+  };
+  //spawnCreep(){  }
 }; 
   
  

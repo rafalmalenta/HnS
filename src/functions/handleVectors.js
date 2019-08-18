@@ -13,13 +13,13 @@ function addVector(vectorToAdd){
     })
     if(!existInArray)
         this.vectorsArray.push(vectorToAdd);
-    this.computeMovementVector(this.vectorsArray)  
+    this.computeMovementVector(this.vectorsArray);  
 };
 function removeVector(vectorToRemove){    
     this.vectorsArray = this.vectorsArray.filter((vector)=>{
         return ((vector.x !== vectorToRemove.x)||(vector.y !== vectorToRemove.y))              
     })         
-    this.computeMovementVector(this.vectorsArray)      
+    this.computeMovementVector(this.vectorsArray);     
 };
 
 export {computeMovementVector, addVector, removeVector}; 

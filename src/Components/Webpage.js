@@ -15,7 +15,7 @@ play(){
 render(){
     return(
     <div>
-       {this.state.play != null? (  <Game store = {gameStore}/>) : (<button onClick={this.play.bind(this)}>Let me play</button>) }     
+       {this.state.play != null? (  <Game store = {gameStore}/>) : (<div>steering A,S,W,D other keys yet ignored<br /><button onClick={this.play.bind(this)}>Let me play</button></div>) }     
     </div>)
 }
 }
