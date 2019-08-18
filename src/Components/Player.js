@@ -24,7 +24,7 @@ import {addVector, removeVector,computeMovementVector} from "../functions/handle
             this.handleKeyUp( event);
             
         });
-        this.movement=setInterval(()=>{
+        this.movement = setInterval(()=>{
             gameStore.player.move();            
         },11)
     }
