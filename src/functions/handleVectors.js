@@ -22,4 +22,11 @@ function removeVector(vectorToRemove){
     this.computeMovementVector(this.vectorsArray);     
 };
 
-export {computeMovementVector, addVector, removeVector}; 
+function calculateVector(creep,player){
+    var length = Math.sqrt(Math.pow(player.position.x - creep.position.x,2)+Math.pow(player.position.y - creep.position.y,2))
+    creep.movementVector.x = (player.position.x - creep.position.x)/length;
+    creep.movementVector.y = (player.position.y - creep.position.y)/length;
+    //console.log(creep.movementVector.x,creep.movementVector.y)
+
+}
+export {computeMovementVector, addVector, removeVector,calculateVector}; 

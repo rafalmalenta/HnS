@@ -1,7 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
 import gameStore from "../Stores/gameStore";
-import {addVector, removeVector,computeMovementVector} from "../functions/handleVectors"
+import {addVector, removeVector,computeMovementVector,calculateVector} from "../functions/handleVectors"
+import move from "../functions/move";
 
 
 @observer export default class Creep extends React.Component{
@@ -9,23 +10,25 @@ import {addVector, removeVector,computeMovementVector} from "../functions/handle
         super();          
     }    
     vectorsArray = [];
-   
+    
     removeVector = removeVector.bind(this);
     addVector = addVector.bind(this);
-    computeMovementVector = computeMovementVector.bind(this);       
+    calculateVector = calculateVector.bind(this);       
     componentDidMount(){
-       
+        setInterval(()=>{
+            calculateVector(gameStore.creeps[this.props.id],gameStore.player);
+            gameStore.creeps[this.props.id].move()
+        },211)       
     }
-    componentWillUnmount(){
-        window.removeEventListener("keydown");
-        window.removeEventListener("keyup");
+    componentWillUnmount(){        
     }
-    render(){        
+    render(){
+       var thisCreep = gameStore.creeps[this.props.id];       
     return(
         <div className="creep" 
-            style={{left:`${gameStore.creeps[this.props.id].position.x}px`,top:`${gameStore.creeps[this.props.id].position.y}px`}} 
+            style={{left:`${thisCreep.position.x}px`,top:`${thisCreep.position.y}px`}} 
             onClick = {this.hurt}>
-            {gameStore.player.health} / {gameStore.player.maxHealth}
+            {thisCreep.health} / {thisCreep.maxHealth}
         </div>
     )
     }

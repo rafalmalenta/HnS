@@ -26,7 +26,7 @@ componentDidMount(){
         setInterval(()=>{
             gameStore.spawnCreep(this.CreepSettings);
             console.log("eg")
-        },1000)
+        },3000)
     }
     render(){
         var creeps = gameStore.creeps.map((creep, index)=>
