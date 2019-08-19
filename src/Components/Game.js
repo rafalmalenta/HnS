@@ -33,6 +33,10 @@ import {addVector, removeVector,computeMovementVector,calculateVector} from "../
     handleKeyUp = handleKeyUp.bind(this);
 
 componentDidMount(){
+    //var innerDom = document.querySelectorAll(".terrain")[0].offsetWidth;
+    //var outerDom = document.querySelectorAll(".visiblePart")[0].offsetWidth;
+
+    //console.log(innerDom," ",outerDom)
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event)
     });
@@ -40,25 +44,27 @@ componentDidMount(){
         this.handleKeyUp( event);            
     });        
     setInterval(()=>{           
+       
+        gameStore.player.move();        
+        gameStore.creeps.forEach((creep)=>{
+            calculateVector(creep,gameStore.player);
+            creep.move();
+        });
+        },30);
+    setInterval(()=>{
         var spawn = {
             x: Math.floor(Math.random()*1000),
             y: Math.floor(Math.random()*1000),
         }; 
-        gameStore.player.move();
         gameStore.spawnCreep({ ...this.CreepSettings, position : spawn }); 
-        gameStore.creeps.forEach((creep)=>{
-            calculateVector(creep,gameStore.player);
-            creep.move();
-        })
-        
-        },300);
+    },1000)    
     }
     render(){
         var creeps = gameStore.creeps.map((creep, index)=>
         <Creep key={index} id={index}/>)
         return(            
-            <div class="visiblePart" >
-                <div class="terrain">
+            <div className="visiblePart" >
+                <div className="terrain">
                     <Player />
                     { creeps }   
                 </div>               
