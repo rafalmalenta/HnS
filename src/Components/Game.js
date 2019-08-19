@@ -3,8 +3,10 @@ import { observer } from 'mobx-react'
 import Player from './Player';
 import gameStore from "../Stores/gameStore";
 import move from "../functions/move";
-import Creep from "./Creep"
-import player from '../Stores/playerStore';
+import Creep from "./Creep";
+import {handleKeyPress,handleKeyUp} from "../functions/handleKeybord";
+import {addVector, removeVector,computeMovementVector,calculateVector} from "../functions/handleVectors"
+
 @observer export default class Game extends React.Component{
     constructor(){
         super();   
@@ -23,24 +25,43 @@ import player from '../Stores/playerStore';
     },
     move : move,
     }
+    vectorsArray = [];   
+    removeVector = removeVector.bind(this);
+    addVector = addVector.bind(this);
+    computeMovementVector = computeMovementVector.bind(this)   
+    handleKeyPress = handleKeyPress.bind(this);
+    handleKeyUp = handleKeyUp.bind(this);
+
 componentDidMount(){
-        setInterval(()=>{           
-            var spawn = {
-                x: Math.floor(Math.random()*1000),
-                y: Math.floor(Math.random()*1000),
-            };            
-            var CreepSettings = { ...this.CreepSettings, position : spawn };
-            console.log(CreepSettings)
-            gameStore.spawnCreep({ ...CreepSettings });           
-        },3000)
+    window.addEventListener("keydown",(event)=>{            
+        this.handleKeyPress( event)
+    });
+    window.addEventListener("keyup",(event)=>{
+        this.handleKeyUp( event);            
+    });        
+    setInterval(()=>{           
+        var spawn = {
+            x: Math.floor(Math.random()*1000),
+            y: Math.floor(Math.random()*1000),
+        }; 
+        gameStore.player.move();
+        gameStore.spawnCreep({ ...this.CreepSettings, position : spawn }); 
+        gameStore.creeps.forEach((creep)=>{
+            calculateVector(creep,gameStore.player);
+            creep.move();
+        })
+        
+        },300);
     }
     render(){
         var creeps = gameStore.creeps.map((creep, index)=>
         <Creep key={index} id={index}/>)
         return(            
-            <div height="100%">
-               <Player />
-               { creeps }
+            <div class="visiblePart" >
+                <div class="terrain">
+                    <Player />
+                    { creeps }   
+                </div>               
             </div>            
         )
     }
