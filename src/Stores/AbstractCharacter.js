@@ -14,13 +14,15 @@ class AbstractCharacter {
     @observable maxHealth;
     @observable position;
     @observable movementVector; 
+    @observable attackRange;
     move;  
     constructor(SettingsJSOL){
       this.health = SettingsJSOL.health;
       this.maxHealth = SettingsJSOL.maxHealth;
       this.position = SettingsJSOL.position;
       this.movementVector= SettingsJSOL.movementVector;
-      this.move = SettingsJSOL.move;         
+      this.move = SettingsJSOL.move;
+      this.attackRange = SettingsJSOL.attackRange         
     };     
 }
 

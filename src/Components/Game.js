@@ -4,6 +4,7 @@ import Player from './Player';
 import gameStore from "../Stores/gameStore";
 import move from "../functions/move";
 import Creep from "./Creep"
+import player from '../Stores/playerStore';
 @observer export default class Game extends React.Component{
     constructor(){
         super();   
@@ -23,9 +24,14 @@ import Creep from "./Creep"
     move : move,
     }
 componentDidMount(){
-        setInterval(()=>{
-            gameStore.spawnCreep(this.CreepSettings);
-            console.log("eg")
+        setInterval(()=>{           
+            var spawn = {
+                x: Math.floor(Math.random()*1000),
+                y: Math.floor(Math.random()*1000),
+            };            
+            var CreepSettings = { ...this.CreepSettings, position : spawn };
+            console.log(CreepSettings)
+            gameStore.spawnCreep({ ...CreepSettings });           
         },3000)
     }
     render(){

@@ -26,7 +26,7 @@ import {addVector, removeVector,computeMovementVector} from "../functions/handle
         });
         this.movement = setInterval(()=>{
             gameStore.player.move();            
-        },211)
+        },33)
     }
     componentWillUnmount(){
         window.removeEventListener("keydown");

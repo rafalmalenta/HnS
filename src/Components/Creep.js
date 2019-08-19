@@ -18,7 +18,7 @@ import move from "../functions/move";
         setInterval(()=>{
             calculateVector(gameStore.creeps[this.props.id],gameStore.player);
             gameStore.creeps[this.props.id].move()
-        },211)       
+        },33)       
     }
     componentWillUnmount(){        
     }
