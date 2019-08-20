@@ -47,8 +47,7 @@ componentDidMount(){
     window.addEventListener("keyup",(event)=>{
         this.handleKeyUp( event);            
     });        
-    setInterval(()=>{           
-       
+    setInterval(()=>{     
         gameStore.player.move();        
         gameStore.creeps.forEach((creep)=>{
             calculateVector(creep,gameStore.player);
@@ -61,7 +60,7 @@ componentDidMount(){
             x: Math.floor(Math.random()*1000),
             y: Math.floor(Math.random()*1000),            
         }; 
-        gameStore.spawnCreep({ ...this.CreepSettings, position : spawn }, this.creepOnly);         
+        gameStore.spawnCreep({ ...this.CreepSettings, position : spawn }, {chasePlayer : chasePlayer,   });         
     },1000)    
     }
     render(){
@@ -74,7 +73,7 @@ componentDidMount(){
                     <Player />
                     { creeps }   
                     
-                </div> ) :(<div>GAME OVER</div>) 
+                </div> ) :(<div><div>YOU DIED</div>GAME OVER</div>) 
             }            
             </div>            
         )

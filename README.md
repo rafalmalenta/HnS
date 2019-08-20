@@ -10,7 +10,8 @@
 ##
 2 Progress.     
     a)implemented movement by keybord that handles multiple key pressed (when u press opposite directions u dont move).
-    b)added spawning enemiest function.
-    c)enemies now pursue player.  
+    b)added spawning enemiest function.(edit: random spawn spot)
+    c)enemies now pursue player.
+    d)enemies deal damage when they are in range of attack  
 
         
