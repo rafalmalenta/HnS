@@ -1,4 +1,5 @@
 import gameStore from "../Stores/gameStore";
+
 function computeMovementVector(vectorsArray){
     gameStore.player.movementVector = vectorsArray.reduce((result, vector)=>{
         return {

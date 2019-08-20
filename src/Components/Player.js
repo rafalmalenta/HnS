@@ -1,8 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
 import gameStore from "../Stores/gameStore";
-import {handleKeyPress,handleKeyUp} from "../functions/handleKeybord";
-import {addVector, removeVector,computeMovementVector} from "../functions/handleVectors"
 
 
 @observer export default class Player extends React.Component{

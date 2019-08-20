@@ -15,24 +15,24 @@ class GameStore{
   constructor(player){
     this.player = player;  
   };
-  spawnCreep(creepSettings){ 
-    this.creeps.push(new creep(creepSettings))
+  spawnCreep(creepSettings,creepOnly){ 
+    this.creeps.push(new creep(creepSettings,creepOnly))
    }
 }; 
 
-var creepSettings = {
-  health : 200,
-  maxHealth : 300,
-  position: {
-    x:0,
-    y:0,
-  },
-  movementVector:{
-    x:0,
-    y:0,
-  },
-  move : move,
-}
+// var creepSettings = {
+//   health : 200,
+//   maxHealth : 300,
+//   position: {
+//     x:0,
+//     y:0,
+//   },
+//   movementVector:{
+//     x:0,
+//     y:0,
+//   },
+//   move : move,
+// }
  
 
 var store = window.store = new GameStore(player);  

@@ -14,7 +14,8 @@ class AbstractCharacter {
     @observable maxHealth;
     @observable position;
     @observable movementVector; 
-    @observable attackRange;
+    @observable attackRange = 10;
+    @observable damage;
     move;  
     constructor(SettingsJSOL){
       this.health = SettingsJSOL.health;
@@ -22,7 +23,8 @@ class AbstractCharacter {
       this.position = SettingsJSOL.position;
       this.movementVector= SettingsJSOL.movementVector;
       this.move = SettingsJSOL.move;
-      this.attackRange = SettingsJSOL.attackRange         
+      this.attackRange = SettingsJSOL.attackRange
+      this.damage = SettingsJSOL.damage         
     };     
 }
 
