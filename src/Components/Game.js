@@ -36,13 +36,13 @@ var CreepSettings = {
     handleKeyUp = handleKeyUp.bind(this);
     creepOnly = {chasePlayer : chasePlayer,   };
     calculatePlayerStartingPosition(player){
-        var centeredX = (document.querySelectorAll(".visiblePart")[0].getBoundingClientRect().width/2)-20;
-        var centeredY = (document.querySelectorAll(".visiblePart")[0].getBoundingClientRect().height/2)-20;
-        //var y = document.querySelectorAll(".terrain")[0].getBoundingClientRect().y;
-        //if()
-        player.renderPosition.x =centeredX - document.querySelectorAll(".terrain")[0].getBoundingClientRect().x;
-        player.renderPosition.y =centeredY - document.querySelectorAll(".terrain")[0].getBoundingClientRect().y;
-        console.log(" ",player.renderPosition.y)
+        var visiblePartWindow = document.querySelectorAll(".visiblePart")[0].getBoundingClientRect();
+        var centeredX = (visiblePartWindow.width/2)-20;
+        var centeredY = (visiblePartWindow.height/2)-20;
+        var terrainInside = document.querySelectorAll(".terrain")[0].getBoundingClientRect();
+        player.renderPosition.x = centeredX - terrainInside.x;
+        player.renderPosition.y = centeredY - terrainInside.y;
+        console.log(" ", player.renderPosition.y)
     }
 
 componentDidMount(){
@@ -59,8 +59,8 @@ componentDidMount(){
     setInterval(()=>{     
         gameStore.player.move();        
         gameStore.creeps.forEach((creep)=>{
-            calculateVector(creep,gameStore.player);
-            creep.chasePlayer(creep,gameStore.player);           
+            calculateVector(creep, gameStore.player);
+            creep.chasePlayer(creep, gameStore.player);           
         });
         },30);
     setInterval(()=>{
@@ -69,7 +69,7 @@ componentDidMount(){
             y: Math.floor(Math.random()*1000),            
         }; 
         //console.log(innerDom," ",outerDom)
-        //gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
+        gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
     },1000)    
     }
     render(){

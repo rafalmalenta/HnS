@@ -6,6 +6,7 @@ class position{
   @observable x;
   @observable y;
 }
+
 class movementVector{
   @observable x;
   @observable y;
