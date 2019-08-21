@@ -20,7 +20,7 @@ class player extends AbstractCharacter{
 var PlayerSettings = {
   health : 200,
   maxHealth : 300,
-  position: {
+  renderPosition: {
     x:0,
     y:0,
   },

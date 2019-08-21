@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-class position{
+class renderPosition{
   @observable x;
   @observable y;
 }
@@ -12,7 +12,7 @@ class movementVector{
 class AbstractCharacter {
     @observable health;
     @observable maxHealth;
-    @observable position;
+    @observable renderPosition;
     @observable movementVector; 
     @observable attackRange = 10;
     @observable damage;
@@ -20,7 +20,7 @@ class AbstractCharacter {
     constructor(SettingsJSOL){
       this.health = SettingsJSOL.health;
       this.maxHealth = SettingsJSOL.maxHealth;
-      this.position = SettingsJSOL.position;
+      this.renderPosition = SettingsJSOL.renderPosition;
       this.movementVector= SettingsJSOL.movementVector;
       this.move = SettingsJSOL.move;
       this.attackRange = SettingsJSOL.attackRange

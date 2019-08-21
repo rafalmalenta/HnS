@@ -9,7 +9,7 @@ module.exports = {
   //context: path(__dirname,), 
   devtool: debug ? "inline-sourcemap" : null,
   entry: "./src/scripts.js",
-  mode: 'development',
+  mode: 'production',
   plugins:  [
      new HtmlWebpackPlugin({
       template: './src/index.html',
@@ -20,8 +20,8 @@ module.exports = {
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        cache: true,
-        parallel: true,}),
+        cache: false,
+        parallel: false,}),
       new OptimizeCSSAssetsPlugin({})
     ]
   },    
@@ -60,10 +60,10 @@ module.exports = {
     filename: "scripts.min.js",
     publicPath: '/',
      },
-  devServer: {    
+  devServer: {     
     contentBase: path.join(__dirname, 'src'),
     watchContentBase: true,
-    compress: true,
+    compress: false,
     host: 'localhost',
     port: 8000,
     open: true,

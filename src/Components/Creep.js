@@ -10,7 +10,7 @@ import gameStore from "../Stores/gameStore";
        var thisCreep = gameStore.creeps[this.props.id];       
     return(
         <div className="creep" 
-            style={{left:`${thisCreep.position.x}px`,top:`${thisCreep.position.y}px`}} 
+            style={{left:`${thisCreep.renderPosition.x}px`,top:`${thisCreep.renderPosition.y}px`}} 
             onClick = {this.hurt}>
             {thisCreep.health} / {thisCreep.maxHealth}
         </div>

@@ -10,7 +10,7 @@ import gameStore from "../Stores/gameStore";
     render(){        
     return(
         <div className="player" 
-            style={{left:`${gameStore.player.position.x}px`,top:`${gameStore.player.position.y}px`}} 
+            style={{left:`${gameStore.player.renderPosition.x}px`,top:`${gameStore.player.renderPosition.y}px`}} 
             onClick = {this.hurt}>
             {gameStore.player.health} / {gameStore.player.maxHealth}
         </div>

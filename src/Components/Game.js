@@ -8,15 +8,10 @@ import {addVector, removeVector,computeMovementVector,calculateVector} from "../
 import move from "../functions/move";
 import chasePlayer from "../functions/chasePlayer";
 
-@observer export default class Game extends React.Component{
-    constructor(){
-        super();   
-    }
-
-    CreepSettings = {
+var CreepSettings = {
     health : 200,
     maxHealth : 300,
-    position: {
+    renderPosition: {
         x:0,
         y:0,
     },
@@ -25,22 +20,36 @@ import chasePlayer from "../functions/chasePlayer";
         y:0,
     },    
     move : move,
-    attackRange: 10,
+    attackRange: 20,
     }
 
+@observer export default class Game extends React.Component{
+    constructor(){
+        super();   
+    }
+   
     vectorsArray = [];   
     removeVector = removeVector.bind(this);
     addVector = addVector.bind(this);
     computeMovementVector = computeMovementVector.bind(this)   
     handleKeyPress = handleKeyPress.bind(this);
     handleKeyUp = handleKeyUp.bind(this);
-    creepOnly = {chasePlayer : chasePlayer,   }
+    creepOnly = {chasePlayer : chasePlayer,   };
+    calculatePlayerStartingPosition(player){
+        var centeredX = (document.querySelectorAll(".visiblePart")[0].getBoundingClientRect().width/2)-20;
+        var centeredY = (document.querySelectorAll(".visiblePart")[0].getBoundingClientRect().height/2)-20;
+        //var y = document.querySelectorAll(".terrain")[0].getBoundingClientRect().y;
+        //if()
+        player.renderPosition.x =centeredX - document.querySelectorAll(".terrain")[0].getBoundingClientRect().x;
+        player.renderPosition.y =centeredY - document.querySelectorAll(".terrain")[0].getBoundingClientRect().y;
+        console.log(" ",player.renderPosition.y)
+    }
 
 componentDidMount(){
-    //var innerDom = document.querySelectorAll(".terrain")[0].offsetWidth;
-    //var outerDom = document.querySelectorAll(".visiblePart")[0].offsetWidth;
-
-    //console.log(innerDom," ",outerDom)
+    var innerDom = document.querySelectorAll(".terrain")[0].getBoundingClientRect().x;
+    var outerDom = document.querySelectorAll(".visiblePart")[0].offsetWidth;
+    this.calculatePlayerStartingPosition(gameStore.player);
+    console.log(innerDom," ",outerDom)
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event);
     });
@@ -51,8 +60,7 @@ componentDidMount(){
         gameStore.player.move();        
         gameStore.creeps.forEach((creep)=>{
             calculateVector(creep,gameStore.player);
-            creep.chasePlayer(creep,gameStore.player);
-            console.log(creep.attackRange)
+            creep.chasePlayer(creep,gameStore.player);           
         });
         },30);
     setInterval(()=>{
@@ -60,14 +68,15 @@ componentDidMount(){
             x: Math.floor(Math.random()*1000),
             y: Math.floor(Math.random()*1000),            
         }; 
-        gameStore.spawnCreep({ ...this.CreepSettings, position : spawn }, {chasePlayer : chasePlayer,   });         
+        //console.log(innerDom," ",outerDom)
+        //gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
     },1000)    
     }
     render(){
         var creeps = gameStore.creeps.map((creep, index)=>
         <Creep key={index} id={index}/>)
         return(            
-            <div className="visiblePart" >
+            <div className="visiblePart" >                
                 {gameStore.player.health > 0 ? (
                 <div className="terrain">
                     <Player />

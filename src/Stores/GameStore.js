@@ -20,27 +20,13 @@ class GameStore{
    }
 }; 
 
-// var creepSettings = {
-//   health : 200,
-//   maxHealth : 300,
-//   position: {
-//     x:0,
-//     y:0,
-//   },
-//   movementVector:{
-//     x:0,
-//     y:0,
-//   },
-//   move : move,
-// }
- 
-
 var store = window.store = new GameStore(player);  
   
 autorun(()=> {
   //odpala loga tylko jezeli wyswietlana zawartosc ulegnie zmianie!
     //console.log(`ten store `, store.creeps.forEach(creep=>console.log(creep.health)));
-    console.log('dsad', store.player.position)
+    //console.log('dsad', store.player.renderPosition.x);
+    //console.log('dsad', store.player.renderPosition.y);
 });
 
 //store.player.health = 211;
