@@ -7,13 +7,18 @@ class equipment{
   @observable hands;
   @observable chest;
 }
-
+class cameraPosition{
+  @observable x;
+  @observable y;
+}
 
 class GameStore{
   @observable player;
   @observable creeps=[];
+  @observable cameraPosition;
   constructor(player){
-    this.player = player;  
+    this.player = player;
+    this.cameraPosition = {x:0, y:0}  
   };
   spawnCreep(creepSettings,creepOnly){ 
     this.creeps.push(new creep(creepSettings,creepOnly))

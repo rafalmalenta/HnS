@@ -7,6 +7,7 @@ import {handleKeyPress,handleKeyUp} from "../functions/handleKeybord";
 import {addVector, removeVector,computeMovementVector,calculateVector} from "../functions/handleVectors";
 import move from "../functions/move";
 import chasePlayer from "../functions/chasePlayer";
+import handleMove from "../functions/handleMove"
 
 var CreepSettings = {
     health : 200,
@@ -26,30 +27,30 @@ var CreepSettings = {
 @observer export default class Game extends React.Component{
     constructor(){
         super();   
-    }
-   
+    }   
     vectorsArray = [];   
     removeVector = removeVector.bind(this);
     addVector = addVector.bind(this);
     computeMovementVector = computeMovementVector.bind(this)   
     handleKeyPress = handleKeyPress.bind(this);
     handleKeyUp = handleKeyUp.bind(this);
+    handleMove = handleMove.bind(this);
     creepOnly = {chasePlayer : chasePlayer,   };
     calculatePlayerStartingPosition(player){
-        var visiblePartWindow = document.querySelectorAll(".visiblePart")[0].getBoundingClientRect();
-        var centeredX = (visiblePartWindow.width/2)-20;
-        var centeredY = (visiblePartWindow.height/2)-20;
+        var camera = document.querySelectorAll(".camera")[0].getBoundingClientRect();
+        var centeredX = (camera.width/2) - 20;
+        var centeredY = (camera.height/2) - 20;
         var terrainInside = document.querySelectorAll(".terrain")[0].getBoundingClientRect();
         player.renderPosition.x = centeredX - terrainInside.x;
         player.renderPosition.y = centeredY - terrainInside.y;
-        console.log(" ", player.renderPosition.y)
+        console.log(" ", terrainInside)
     }
 
 componentDidMount(){
-    var innerDom = document.querySelectorAll(".terrain")[0].getBoundingClientRect().x;
-    var outerDom = document.querySelectorAll(".visiblePart")[0].offsetWidth;
+    var innerDom = document.querySelectorAll(".terrain")[0].getBoundingClientRect();
+    var outerDom = document.querySelectorAll(".camera")[0].getBoundingClientRect().width;
     this.calculatePlayerStartingPosition(gameStore.player);
-    console.log(innerDom," ",outerDom)
+    //console.log(innerDom," ",outerDom)
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event);
     });
@@ -57,7 +58,7 @@ componentDidMount(){
         this.handleKeyUp( event);            
     });        
     setInterval(()=>{     
-        gameStore.player.move();        
+        handleMove(gameStore.player);        
         gameStore.creeps.forEach((creep)=>{
             calculateVector(creep, gameStore.player);
             creep.chasePlayer(creep, gameStore.player);           
@@ -65,10 +66,9 @@ componentDidMount(){
         },30);
     setInterval(()=>{
         var spawn = {
-            x: Math.floor(Math.random()*1000),
-            y: Math.floor(Math.random()*1000),            
-        }; 
-        //console.log(innerDom," ",outerDom)
+            x: Math.floor(Math.random() * 1000),
+            y: Math.floor(Math.random() * 1000),           
+        };         
         gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
     },1000)    
     }
@@ -76,9 +76,9 @@ componentDidMount(){
         var creeps = gameStore.creeps.map((creep, index)=>
         <Creep key={index} id={index}/>)
         return(            
-            <div className="visiblePart" >                
+            <div className = "camera" >                
                 {gameStore.player.health > 0 ? (
-                <div className="terrain">
+                <div className="terrain"  >
                     <Player />
                     { creeps }   
                     
