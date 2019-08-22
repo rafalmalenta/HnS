@@ -7,12 +7,13 @@ import gameStore from "../Stores/gameStore";
     constructor(){
         super();          
     }  
-    render(){        
+    render(){
+        var player =  gameStore.player;//DRYing      
     return(
         <div className="player" 
-            style={{left:`${gameStore.player.renderPosition.x}px`,top:`${gameStore.player.renderPosition.y}px`}} 
+            style={{left:`${player.renderPosition.x}px`,top:`${player.renderPosition.y}px`}} 
             onClick = {this.hurt}>
-            {gameStore.player.health} / {gameStore.player.maxHealth}
+            {player.health} / {player.maxHealth}
         </div>
     )
     }

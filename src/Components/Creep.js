@@ -7,7 +7,7 @@ import gameStore from "../Stores/gameStore";
         super();          
     }       
     render(){
-       var thisCreep = gameStore.creeps[this.props.id];       
+       var thisCreep = gameStore.creeps[this.props.id];//DRYing       
     return(
         <div className="creep" 
             style={{left:`${thisCreep.renderPosition.x}px`,top:`${thisCreep.renderPosition.y}px`}} 
