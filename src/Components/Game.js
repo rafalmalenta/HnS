@@ -40,25 +40,25 @@ var CreepSettings = {
         var camera = document.querySelectorAll(".camera")[0].getBoundingClientRect();
         var centeredX = (camera.width/2) - 20;
         var centeredY = (camera.height/2) - 20;
-        var terrainInside = document.querySelectorAll(".terrain")[0].getBoundingClientRect();
-        player.renderPosition.x = centeredX - terrainInside.x;
-        player.renderPosition.y = centeredY - terrainInside.y;
-        console.log(" ", terrainInside)
+        var sceneInside = document.querySelectorAll(".scene")[0].getBoundingClientRect();
+        player.renderPosition.x = centeredX - sceneInside.x;
+        player.renderPosition.y = centeredY - sceneInside.y;
+        //console.log(" ", sceneInside)
     }
 
 componentDidMount(){
-    var innerDom = document.querySelectorAll(".terrain")[0].getBoundingClientRect();
+    var innerDom = document.querySelectorAll(".scene")[0].getBoundingClientRect();
     var outerDom = document.querySelectorAll(".camera")[0].getBoundingClientRect().width;
     this.calculatePlayerStartingPosition(gameStore.player);
     //console.log(innerDom," ",outerDom)
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event);
     });
-    window.addEventListener("keyup",(event)=>{
+    window.addEventListener("keyup",(event)=>{ 
         this.handleKeyUp( event);            
     });        
     setInterval(()=>{     
-        handleMove(gameStore.player);        
+        handleMove(gameStore.player, gameStore);        
         gameStore.creeps.forEach((creep)=>{
             calculateVector(creep, gameStore.player);
             creep.chasePlayer(creep, gameStore.player);           
@@ -78,10 +78,9 @@ componentDidMount(){
         return(            
             <div className = "camera" >                
                 {gameStore.player.health > 0 ? (
-                <div className="terrain"  >
+                <div className="scene" style={{left:`${gameStore.cameraPosition.x}px`, top:`${gameStore.cameraPosition.y}px`}} >
                     <Player />
-                    { creeps }   
-                    
+                    { creeps }                       
                 </div> ) :(<div><div>YOU DIED</div>GAME OVER</div>) 
             }            
             </div>            

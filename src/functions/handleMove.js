@@ -1,22 +1,45 @@
 import move from "./move";
-function handleMove(player){
-    var innerDivGeometry = document.querySelectorAll(".terrain")[0].getBoundingClientRect();
+import moveCamera from "./moveCamera";
+
+function handleMove(player, store){
+    var sceneGeometry = document.querySelectorAll(".scene")[0].getBoundingClientRect();
     var camera = document.querySelectorAll(".camera")[0];
     var cameraGeometry = camera.getBoundingClientRect();
     
-    var innerDivLeftOverflow = -(innerDivGeometry.x);    
-    var innerDivRightOveflow = innerDivGeometry.right - cameraGeometry.width;
-    var innerDivTopOverflow = -(innerDivGeometry.y);
-    var innerDivBottomOverflow = (innerDivGeometry.bottom - cameraGeometry.height);
+    var sceneLeftOverflow = -(sceneGeometry.x);    
+    var sceneRightOveflow = sceneGeometry.right - cameraGeometry.width;
+    var sceneTopOverflow = -(sceneGeometry.y);
+    var sceneBottomOverflow = (sceneGeometry.bottom - cameraGeometry.height);
+    
     if(player.movementVector.x > 0){
-      if(innerDivRightOveflow > 0 ){
-        //moveCamera(-player.movementVector.x);
+      if(sceneRightOveflow > 0 ){        
+        store.moveCamera({x:-player.movementVector.x, y:0});       
       }
       else
         player.move({x:player.movementVector.x, y:0});
     }
-
-    console.log(innerDivLeftOverflow, " ",innerDivRightOveflow, " ",innerDivBottomOverflow, " ",innerDivTopOverflow, " ")
+    if(player.movementVector.x < 0){
+      if(sceneLeftOverflow > 0 ){        
+        store.moveCamera({x: -player.movementVector.x, y:0});        
+      }
+      else
+        player.move({x:player.movementVector.x, y:0});
+    }
+    if(player.movementVector.y > 0){
+      if(sceneBottomOverflow > 0 ){        
+        store.moveCamera({x: 0, y:-player.movementVector.y});       
+      }
+      else
+        player.move({x:0, y:player.movementVector.y});
+    }
+    if(player.movementVector.y < 0){
+      if(sceneTopOverflow > 0 ){        
+        store.moveCamera({x: 0, y:-player.movementVector.y});       
+      }
+      else
+        player.move({x:0, y:player.movementVector.y});
+    }
+    
     if(3 > 5){     
     }
     else player.move(player.movementVector);
