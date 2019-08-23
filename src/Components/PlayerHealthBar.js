@@ -9,8 +9,8 @@ import gameStore from "../Stores/gameStore";
     }  
     render(){
         var player =  gameStore.player;//DRYing
-        var healthpercentage = (player.health/player.maxHealth) * 100 
-        console.log(healthpercentage)    
+        var healthpercentage = (player.health/player.maxHealth) * 100;
+        
     return(
         <div className="healthBar" 
             style={{width:"500px",height:"30px", backgroundColor:"white"}} >

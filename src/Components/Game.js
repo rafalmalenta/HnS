@@ -7,8 +7,8 @@ import {handleKeyPress,handleKeyUp} from "../functions/handleKeybord";
 import {addVector, removeVector,computeMovementVector,calculateVector} from "../functions/handleVectors";
 import move from "../functions/move";
 import chasePlayer from "../functions/chasePlayer";
-import handleMove from "../functions/handleMove";
-import PlayerHealthBar from "./PlayerHealthBar"
+import PlayerHealthBar from "./PlayerHealthBar";
+import MoveHandler from "../functions/MoveHandler";
 
 var CreepSettings = {
     health : 200,
@@ -38,23 +38,26 @@ var CreepSettings = {
     handleMove = handleMove.bind(this);
     creepOnly = {chasePlayer : chasePlayer,   };
     movement;
+    
     calculatePlayerStartingPosition(player){
         var camera = document.querySelectorAll(".camera")[0].getBoundingClientRect();
+        var scene = document.querySelectorAll(".scene")[0].getBoundingClientRect();
         var centeredX = (camera.width/2) - 20;
         var centeredY = (camera.height/2) - 20;
-        var sceneInside = document.querySelectorAll(".scene")[0].getBoundingClientRect();
-        player.renderPosition.x = centeredX - sceneInside.x;
-        player.renderPosition.y = centeredY - sceneInside.y;       
+        
+        player.renderPosition.x = centeredX - scene.x;
+        player.renderPosition.y = centeredY - scene.y;       
     }
     
 
 componentDidMount(){
-   
+    var zoveHandler = new MoveHandler(gameStore);
     this.calculatePlayerStartingPosition(gameStore.player);
     function clear(){
         clearInterval(movement);
         clearInterval(spawning);
-    }
+    };
+    //gameStore.spawnCreep({ ...CreepSettings }, {chasePlayer : chasePlayer,   });
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event);
     });
@@ -62,7 +65,7 @@ componentDidMount(){
         this.handleKeyUp( event);            
     });        
     var movement = setInterval(()=>{     
-        handleMove(gameStore.player, gameStore);        
+        zoveHandler.hadleMove();        
         gameStore.creeps.forEach((creep)=>{
             calculateVector(creep, gameStore.player);
             creep.chasePlayer(creep, gameStore.player);
@@ -76,7 +79,7 @@ componentDidMount(){
             x: Math.floor(Math.random() * 1000),
             y: Math.floor(Math.random() * 1000),           
         };         
-        gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
+        //gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
     },1000)    
     }
     render(){
