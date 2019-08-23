@@ -34,8 +34,7 @@ var CreepSettings = {
     addVector = addVector.bind(this);
     computeMovementVector = computeMovementVector.bind(this)   
     handleKeyPress = handleKeyPress.bind(this);
-    handleKeyUp = handleKeyUp.bind(this);
-    handleMove = handleMove.bind(this);
+    handleKeyUp = handleKeyUp.bind(this);   
     creepOnly = {chasePlayer : chasePlayer,   };
     movement;
     
@@ -79,7 +78,7 @@ componentDidMount(){
             x: Math.floor(Math.random() * 1000),
             y: Math.floor(Math.random() * 1000),           
         };         
-        //gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
+        gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
     },1000)    
     }
     render(){

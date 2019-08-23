@@ -15,7 +15,7 @@ class cameraPosition{
 
 class GameStore{
   @observable player;
-  @observable creeps=[];
+  @observable creeps = [];
   @observable cameraPosition;
   constructor(player){
     this.player = player;
@@ -24,6 +24,9 @@ class GameStore{
   spawnCreep(creepSettings,creepOnly){ 
     this.creeps.push(new creep(creepSettings,creepOnly))
   };
+  removeCreep(index){
+    this.creeps.splice(index,1)
+  }
   moveCamera = moveCamera;
 }; 
 
