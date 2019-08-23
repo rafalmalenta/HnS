@@ -11,7 +11,7 @@ import PlayerHealthBar from "./PlayerHealthBar";
 import MoveHandler from "../functions/MoveHandler";
 
 var CreepSettings = {
-    health : 200,
+    health : 300,
     maxHealth : 300,
     renderPosition: {
         x:0,
@@ -42,8 +42,7 @@ var CreepSettings = {
         var camera = document.querySelectorAll(".camera")[0].getBoundingClientRect();
         var scene = document.querySelectorAll(".scene")[0].getBoundingClientRect();
         var centeredX = (camera.width/2) - 20;
-        var centeredY = (camera.height/2) - 20;
-        
+        var centeredY = (camera.height/2) - 20;        
         player.renderPosition.x = centeredX - scene.x;
         player.renderPosition.y = centeredY - scene.y;       
     }
@@ -55,8 +54,7 @@ componentDidMount(){
     function clear(){
         clearInterval(movement);
         clearInterval(spawning);
-    };
-    //gameStore.spawnCreep({ ...CreepSettings }, {chasePlayer : chasePlayer,   });
+    };    
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event);
     });

@@ -7,15 +7,10 @@ import gameStore from "../Stores/gameStore";
         super();          
     }
     hurt(index){
-        gameStore.creeps[this.props.id].health = gameStore.creeps[this.props.id].health - 125;
-        //gameStore.creeps[this.props.id].health;
+        gameStore.creeps[this.props.id].health = gameStore.creeps[this.props.id].health - 125;        
         if(gameStore.creeps[this.props.id].health <= 0){
-            gameStore.removeCreep(this.props.id)
-           
-        //console.log(gameStore.creeps[this.props.id].health);
-       
-        }
-       //e.target 
+            gameStore.removeCreep(this.props.id)       
+        }       
     }       
     render(){
        var thisCreep = gameStore.creeps[this.props.id];//DRYing       
@@ -23,7 +18,12 @@ import gameStore from "../Stores/gameStore";
         <div className="creep" 
             style={{left:`${thisCreep.renderPosition.x}px`,top:`${thisCreep.renderPosition.y}px`}} 
             onClick = {(e)=>this.hurt(this.props.id,e)}>
-            {thisCreep.health} / {thisCreep.maxHealth}
+                <div className="HPBar">
+                    <div style={{height:"100%", width:`${(thisCreep.health/thisCreep.maxHealth)*100}%`,backgroundColor:"green"}}>
+
+                    </div>
+                </div>
+            
         </div>
     )
     }

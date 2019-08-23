@@ -36,14 +36,23 @@ body
     border-radius: 50%
 .creep
     position: absolute
+    display: flex
+    align-items: center
+    justify-content: center
+    z-index: 3
     width: 41px
     height: 41px
     background-color: red    
     border-radius: 50%
-
+.HPBar
+    width: 100%
+    display: block
+    z-index: 11
+    height: 9px
+    background-color: grey
 .healthBar
     z-index: 11
-    //display: block
+    flex-shrink: 0  
     top: 10px
     position: absolute
     
