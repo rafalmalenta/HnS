@@ -29,11 +29,13 @@ body
     background-image: radial-gradient(white, grey, lightgrey)
 
 .player
+    display: flex
     position: absolute
     width: 41px
     height: 41px
     background-color: green    
     border-radius: 50%
+    //animation: squezee 1s infinite
 .creep
     position: absolute
     display: flex
@@ -55,4 +57,16 @@ body
     flex-shrink: 0  
     top: 10px
     position: absolute
+
+@keyframes squezee
+    0%
+        width: 33px
+        height: 41px
+    50%
+        width: 41px
+        height: 33px   
+    100%
+        width: 33px
+        height: 41px
+        
     

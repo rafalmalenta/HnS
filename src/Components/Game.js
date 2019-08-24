@@ -5,7 +5,6 @@ import gameStore from "../Stores/gameStore";
 import Creep from "./Creep";
 import {handleKeyPress,handleKeyUp} from "../functions/handleKeybord";
 import {addVector, removeVector,computeMovementVector,calculateVector} from "../functions/handleVectors";
-import move from "../functions/move";
 import chasePlayer from "../functions/chasePlayer";
 import PlayerHealthBar from "./PlayerHealthBar";
 import MoveHandler from "../functions/MoveHandler";
@@ -20,8 +19,7 @@ var CreepSettings = {
     movementVector:{
         x:0,
         y:0,
-    },    
-    move : move,
+    },        
     attackRange: 20,
     }
 
@@ -37,6 +35,7 @@ var CreepSettings = {
     handleKeyUp = handleKeyUp.bind(this);   
     creepOnly = {chasePlayer : chasePlayer,   };
     movement;
+    spawning;
     
     calculatePlayerStartingPosition(player){
         var camera = document.querySelectorAll(".camera")[0].getBoundingClientRect();
@@ -46,42 +45,48 @@ var CreepSettings = {
         player.renderPosition.x = centeredX - scene.x;
         player.renderPosition.y = centeredY - scene.y;       
     }
-    
+    clear = () =>{
+        console.log(this.spawning)        
+        clearInterval(this.movement);
+        clearInterval(this.spawning);
+        this.spawning = false
+        console.log(this.spawning)
+    };    
+    play 
+
 
 componentDidMount(){
-    var zoveHandler = new MoveHandler(gameStore);
-    this.calculatePlayerStartingPosition(gameStore.player);
-    function clear(){
-        clearInterval(movement);
-        clearInterval(spawning);
-    };    
+    var moveHandler = new MoveHandler(gameStore);
+    this.calculatePlayerStartingPosition(gameStore.player);    
+    this.play = ()=>{
+        this.movement = setInterval(()=>{     
+            moveHandler.hadleMove();        
+            gameStore.creeps.forEach((creep)=>{
+                calculateVector(creep, gameStore.player);
+                creep.chasePlayer(creep, gameStore.player);
+                
+            });
+            },50);
+        this.spawning = setInterval(()=>{
+            var spawn = {
+                x: Math.floor(Math.random() * 1000),
+                y: Math.floor(Math.random() * 1000),           
+            };         
+            gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
+        },1000)   
+    }
+    
     window.addEventListener("keydown",(event)=>{            
         this.handleKeyPress( event);
     });
     window.addEventListener("keyup",(event)=>{ 
         this.handleKeyUp( event);            
-    });        
-    var movement = setInterval(()=>{     
-        zoveHandler.hadleMove();        
-        gameStore.creeps.forEach((creep)=>{
-            calculateVector(creep, gameStore.player);
-            creep.chasePlayer(creep, gameStore.player);
-            if(gameStore.player.health <= 0){
-                clear()
-            }
-        });
-        },30);
-    var spawning = setInterval(()=>{
-        var spawn = {
-            x: Math.floor(Math.random() * 1000),
-            y: Math.floor(Math.random() * 1000),           
-        };         
-        gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
-    },1000)    
+    });
+    this.play();   
     }
     render(){
         if(gameStore.player.health <= 0){
-            clearInterval(this.movement)
+            this.clear()
         }
         var creeps = gameStore.creeps.map((creep, index)=>
         <Creep key={index} id={index}/>)

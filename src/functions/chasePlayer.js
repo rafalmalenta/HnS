@@ -4,7 +4,7 @@ function chasePlayer(creep, player){
     if(length < creep.attackRange){
       player.health = player.health - 5;
     }
-    else creep.move(creep.movementVector,4);   
+    else creep.move(creep.movementVector,2);   
   }
 
 export default chasePlayer;

@@ -11,8 +11,16 @@ function handleKeyPress(event){
             break;
         case 'KeyD':
             this.addVector({x:1,y:0});              
-            break;             
-      }     
+            break; 
+        case 'Space':{
+            if(this.spawning){
+                this.clear();
+                console.log(this.spawning)}
+            else
+                this.play()        
+            break;
+        }            
+    }     
 };
 function handleKeyUp(event){   
     switch (event.code) {

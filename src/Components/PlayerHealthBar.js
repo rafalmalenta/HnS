@@ -13,11 +13,10 @@ import gameStore from "../Stores/gameStore";
         
     return(
         <div className="healthBar" 
-            style={{width:"500px",height:"30px", backgroundColor:"white"}} >
-                <div style={{width:`${healthpercentage}%`,height:"100%", backgroundColor:"red"}} >
-
+            style={{width:"500px",height:"30px", backgroundColor:"white",textAlign: "center"}} >
+                <div style={{width:`${healthpercentage}%`,height:"100%", backgroundColor:"red",position:"absolute",zIndex:"-3"}} >                    
                 </div>
-            
+            {`${Math.floor(healthpercentage)}%`}
             
         </div>
     )

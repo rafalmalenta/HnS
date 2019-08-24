@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import move from "../functions/move"
 
 class renderPosition{
   @observable x;
@@ -22,7 +23,7 @@ class AbstractCharacter {
       this.maxHealth = SettingsJSOL.maxHealth;
       this.renderPosition = SettingsJSOL.renderPosition;
       this.movementVector= SettingsJSOL.movementVector;
-      this.move = SettingsJSOL.move;
+      this.move = move;
       this.attackRange = SettingsJSOL.attackRange
       this.damage = SettingsJSOL.damage         
     };     

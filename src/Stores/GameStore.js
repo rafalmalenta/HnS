@@ -17,9 +17,11 @@ class GameStore{
   @observable player;
   @observable creeps = [];
   @observable cameraPosition;
+  @observable paused;
   constructor(player){
     this.player = player;
-    this.cameraPosition = {x:0, y:0}  
+    this.cameraPosition = {x:0, y:0} 
+    this.paused=true; 
   };
   spawnCreep(creepSettings,creepOnly){ 
     this.creeps.push(new creep(creepSettings,creepOnly))
@@ -39,5 +41,5 @@ autorun(()=> {
     //console.log('dsad', store.player.renderPosition.y);
 });
 
-//store.player.health = 211;
+
 export default store;
