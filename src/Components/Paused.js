@@ -8,11 +8,16 @@ import gameStore from "../Stores/GameStore";
         super();          
     }  
     render(){
-        var player =  gameStore.player;//DRYing      
+        //var player =  gameStore.player;//DRYing      
     return(
-        <div className="player" 
-            style={{left:`${player.renderPosition.x}px`,top:`${player.renderPosition.y}px`}} 
-            >           
+        <div className="paused" 
+            style={{
+                position:"absolute",
+                zIndex: "22",
+            }} 
+
+            >
+                Paused          
         </div>
     )
     }

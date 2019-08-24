@@ -1,4 +1,4 @@
-import gameStore from "../Stores/gameStore";
+import gameStore from "../Stores/GameStore";
 
 function computeMovementVector(vectorsArray){
     gameStore.player.movementVector = vectorsArray.reduce((result, vector)=>{
@@ -24,10 +24,9 @@ function removeVector(vectorToRemove){
 };
 
 function calculateVector(creep,player){
-    var length = Math.sqrt(Math.pow(player.renderPosition.x - creep.renderPosition.x,2)+Math.pow(player.renderPosition.y - creep.renderPosition.y,2))
-    creep.movementVector.x = (player.renderPosition.x - creep.renderPosition.x)/length;
-    creep.movementVector.y = (player.renderPosition.y - creep.renderPosition.y)/length;
-    //console.log(creep.movementVector.x,creep.movementVector.y)
+    var distance = Math.sqrt(Math.pow(player.renderPosition.x - creep.renderPosition.x,2)+Math.pow(player.renderPosition.y - creep.renderPosition.y,2))
+    creep.movementVector.x = (player.renderPosition.x - creep.renderPosition.x)/distance;
+    creep.movementVector.y = (player.renderPosition.y - creep.renderPosition.y)/distance;    
 
 }
 export {computeMovementVector, addVector, removeVector,calculateVector}; 

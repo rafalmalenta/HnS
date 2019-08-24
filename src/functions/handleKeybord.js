@@ -1,3 +1,4 @@
+import gameStore from "../Stores/GameStore";
 function handleKeyPress(event){   
     switch (event.code) {
         case 'KeyW':
@@ -13,9 +14,9 @@ function handleKeyPress(event){
             this.addVector({x:1,y:0});              
             break; 
         case 'Space':{
-            if(this.spawning){
+            if(!gameStore.paused)
                 this.clear();
-                console.log(this.spawning)}
+                
             else
                 this.play()        
             break;

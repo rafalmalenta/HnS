@@ -1,4 +1,4 @@
-import gameStore from "../Stores/gameStore";
+import gameStore from "../Stores/GameStore";
 function move(vector,speed){       
          
     this.renderPosition.x = this.renderPosition.x + vector.x * speed ; // * movementSpeed ;//Upgrade this when i provide movementSpeed

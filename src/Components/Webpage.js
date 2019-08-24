@@ -1,6 +1,6 @@
 import React from "react";
 import Game from "./Game"
-import gameStore from "../Stores/gameStore"
+import gameStore from "../Stores/GameStore"
 
 export default class Webpage extends React.Component{
 constructor(){

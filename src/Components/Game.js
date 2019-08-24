@@ -1,14 +1,15 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Player from './Player';
-import gameStore from "../Stores/gameStore";
+import gameStore from "../Stores/GameStore";
 import Creep from "./Creep";
 import {handleKeyPress,handleKeyUp} from "../functions/handleKeybord";
 import {addVector, removeVector,computeMovementVector,calculateVector} from "../functions/handleVectors";
 import chasePlayer from "../functions/chasePlayer";
 import PlayerHealthBar from "./PlayerHealthBar";
 import MoveHandler from "../functions/MoveHandler";
-
+import Paused from "./Paused"
+ 
 var CreepSettings = {
     health : 300,
     maxHealth : 300,
@@ -25,7 +26,12 @@ var CreepSettings = {
 
 @observer export default class Game extends React.Component{
     constructor(){
-        super();   
+        super();
+        this.state=
+            {
+                paused:false
+            }
+           
     }   
     vectorsArray = [];   
     removeVector = removeVector.bind(this);
@@ -36,6 +42,7 @@ var CreepSettings = {
     creepOnly = {chasePlayer : chasePlayer,   };
     movement;
     spawning;
+    paused ="true";
     
     calculatePlayerStartingPosition(player){
         var camera = document.querySelectorAll(".camera")[0].getBoundingClientRect();
@@ -46,19 +53,18 @@ var CreepSettings = {
         player.renderPosition.y = centeredY - scene.y;       
     }
     clear = () =>{
-        console.log(this.spawning)        
+        console.log(this.paused)        
         clearInterval(this.movement);
         clearInterval(this.spawning);
-        this.spawning = false
-        console.log(this.spawning)
+        gameStore.paused = true; 
+        //console.log(this.spawning)
     };    
-    play 
-
+    play
 
 componentDidMount(){
     var moveHandler = new MoveHandler(gameStore);
     this.calculatePlayerStartingPosition(gameStore.player);    
-    this.play = ()=>{
+    this.play= ()=>{
         this.movement = setInterval(()=>{     
             moveHandler.hadleMove();        
             gameStore.creeps.forEach((creep)=>{
@@ -73,7 +79,8 @@ componentDidMount(){
                 y: Math.floor(Math.random() * 1000),           
             };         
             gameStore.spawnCreep({ ...CreepSettings, renderPosition : spawn }, {chasePlayer : chasePlayer,   });         
-        },1000)   
+        },1000)
+        gameStore.paused = false;   
     }
     
     window.addEventListener("keydown",(event)=>{            
@@ -90,16 +97,19 @@ componentDidMount(){
         }
         var creeps = gameStore.creeps.map((creep, index)=>
         <Creep key={index} id={index}/>)
-        return(            
-            <div className = "camera" >  
-                <PlayerHealthBar />          
-                {gameStore.player.health > 0 ? (                    
-                <div className="scene" style={{left:`${gameStore.cameraPosition.x}px`, top:`${gameStore.cameraPosition.y}px`}} >                    
-                    <Player />
-                    { creeps }                       
-                </div> ) :(<div><div>YOU DIED</div>GAME OVER</div>) 
-            }            
-            </div>            
+        return(
+            <div className="gameContainer">
+                {gameStore.paused? (<Paused />):("")}            
+                <div className = "camera" >  
+                    <PlayerHealthBar />          
+                    {gameStore.player.health > 0 ? (                    
+                    <div className="scene" style={{left:`${gameStore.cameraPosition.x}px`, top:`${gameStore.cameraPosition.y}px`}} >                    
+                        <Player />
+                        { creeps }                       
+                    </div> ) :(<div><div>YOU DIED</div>GAME OVER</div>) 
+                }            
+                </div> 
+            </div>           
         )
     }
 

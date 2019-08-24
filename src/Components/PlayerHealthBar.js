@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import gameStore from "../Stores/gameStore";
+import gameStore from "../Stores/GameStore";
 
 
 @observer export default class PlayerHealthBar extends React.Component{
