@@ -54,7 +54,7 @@ function handleMoveVertical(){
 class MoveHandler{       
     scene = document.querySelectorAll(".scene")[0];    
     camera = document.querySelectorAll(".camera")[0];
-    cameraGeometry = this.camera.getBoundingClientRect();
+    //cameraGeometry = this.camera.getBoundingClientRect();
     centeredX = (this.camera.width/2) - 20;
     centeredY = (this.camera.height/2) - 20;   
     hadleMove(){

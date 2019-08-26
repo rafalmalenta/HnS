@@ -21,7 +21,7 @@ class GameStore{
   constructor(player){
     this.player = player;
     this.cameraPosition = {x:0, y:0} 
-    this.paused=true; 
+    this.paused = true; 
   };
   spawnCreep(creepSettings,creepOnly){ 
     this.creeps.push(new creep(creepSettings,creepOnly))

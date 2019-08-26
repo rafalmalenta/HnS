@@ -15,8 +15,7 @@ function handleKeyPress(event){
             break; 
         case 'Space':{
             if(!gameStore.paused)
-                this.clear();
-                
+                this.clear();                
             else
                 this.play()        
             break;
