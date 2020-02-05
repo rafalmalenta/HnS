@@ -1,5 +1,5 @@
 import { autorun,computed, observable } from 'mobx';
-import player from "./playerStore";
+import player from "./PlayerStore";
 import creep from './CreepsStore';
 import moveCamera from '../functions/moveCamera'
 import move from "../functions/move"
